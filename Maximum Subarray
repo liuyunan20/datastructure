@@ -1,0 +1,9 @@
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maximum = nums[0]
+        current = 0
+        for i in range(len(nums)):
+            current += nums[i]
+            current = max(current, nums[i])
+            maximum = max(maximum, current)
+        return maximum
