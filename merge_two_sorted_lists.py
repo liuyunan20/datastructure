@@ -37,5 +37,5 @@ class Solution:
                 else:
                     l3.next = list2
                     l3 = l3.next
-                    list2= list2.next
+                    list2 = list2.next
             return head
