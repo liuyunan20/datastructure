@@ -13,7 +13,7 @@ class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        
+
         current_level_nodes = [root]
         level = 0
         while current_level_nodes:
