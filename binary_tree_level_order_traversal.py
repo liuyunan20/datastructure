@@ -10,7 +10,7 @@ class TreeNode:
 
 
 class Solution:
-    
+
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         levelorder_tree = []
         my_stack = [[root]]
