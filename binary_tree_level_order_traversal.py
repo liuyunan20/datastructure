@@ -13,17 +13,16 @@ class Solution:
 
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         levelorder_tree = []
-        my_stack = [[root]]
-        while my_stack:
+        current_level_nodes = [root]
+        while current_level_nodes:
             current_level = []
             next_level_nodes = []
-            for node in my_stack.pop():
+            for node in current_level_nodes:
                 if node:
                     current_level.append(node.val)
                     next_level_nodes.append(node.left)
                     next_level_nodes.append(node.right)
-            if next_level_nodes:
-                my_stack.append(next_level_nodes)
+            current_level_nodes = next_level_nodes
             if current_level:
                 levelorder_tree.append(current_level)
         return levelorder_tree
