@@ -10,7 +10,7 @@ class TreeNode:
 
 
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    def isValidBST_double_recursion(self, root: Optional[TreeNode]) -> bool:
         if root:
             left_sub_tree = self.sub_tree(root.left)
             right_sub_tree = self.sub_tree(root.right)
@@ -22,8 +22,8 @@ class Solution:
                 for node in right_sub_tree:
                     if node.val <= root.val:
                         return False
-            result1 = self.isValidBST(root.left)
-            result2 = self.isValidBST(root.right)
+            result1 = self.isValidBST_double_recursion(root.left)
+            result2 = self.isValidBST_double_recursion(root.right)
             if result1 is False or result2 is False:
                 return False
             return True
@@ -35,3 +35,19 @@ class Solution:
             sub_tree += self.sub_tree(root.left)
             sub_tree += self.sub_tree(root.right)
         return sub_tree
+
+    def isValidBST_one_recursion(self, root: Optional[TreeNode]) -> bool:
+        inorder_tree = self.get_tree_val(root)
+        for i in range(len(inorder_tree) - 1):
+            if inorder_tree[i] >= inorder_tree[i + 1]:
+                return False
+        return True
+
+    # inorder traverse
+    def get_tree_val(self, root: Optional[TreeNode]) -> list:
+        tree = []
+        if root:
+            tree += self.get_tree_val(root.left)
+            tree.append(root.val)
+            tree += self.get_tree_val(root.right)
+        return tree
