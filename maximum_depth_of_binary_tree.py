@@ -10,6 +10,7 @@ class TreeNode:
 
 
 class Solution:
+    # solution I thought from level traversal method
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
@@ -26,3 +27,11 @@ class Solution:
                 level += 1
             current_level_nodes = next_level_nodes
         return level
+
+    def maxDepth_recursion(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        depth_left = self.maxDepth_recursion(root.left) + 1
+        depth_right = self.maxDepth_recursion(root.right) + 1
+        return max(depth_left, depth_right)
