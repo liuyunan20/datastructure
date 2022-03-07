@@ -61,3 +61,15 @@ class Solution:
                         if level.popleft() != level.pop():
                             return False
             return True
+
+    # solution using recursion
+    def isSymmetric_recursion(self, root: Optional[TreeNode]) -> bool:
+        return self.mirror(root, root)
+
+    def mirror(self, node_left, node_right):
+        if not node_left and not node_right:
+            return True
+        if not node_left or not node_right:
+            return False
+        if node_left.val == node_right.val and self.mirror(node_left.left, node_right.right) and self.mirror(node_left.right, node_right.left):
+            return True
