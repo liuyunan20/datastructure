@@ -6,6 +6,10 @@ class TreeNode:
 
 
 class Solution:
+
+    def __init__(self):
+        self.ancestor = None
+
     # exceed time limit
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         current_node = root
@@ -30,3 +34,21 @@ class Solution:
             result += self.find_nodes(root.left, p, q)
             result += self.find_nodes(root.right, p, q)
         return result
+
+    # use a class attribute to locate the lowest ancestor
+    def lowestCommonAncestor_2(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.find_ancestor(root, p, q)
+        return self.ancestor
+
+    def find_ancestor(self, root, p, q):
+        if not root:
+            return False
+        if root.val in [p.val, q.val]:
+            mid = True
+        else:
+            mid = False
+        left = self.find_ancestor(root.left, p, q)
+        right = self.find_ancestor(root.right, p, q)
+        if (mid and left) or (mid and right) or (left and right):
+            self.ancestor = root
+        return mid or left or right
