@@ -52,3 +52,20 @@ class Solution:
         if (mid and left) or (mid and right) or (left and right):
             self.ancestor = root
         return mid or left or right
+
+    def lowestCommonAncestor_3(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        result = self.find_nodes_2(root, p, q)
+        return result[2]
+
+    def find_nodes_2(self, root, p, q):
+        result = []
+        if root:
+            if root.val == p.val:
+                result.append(root)
+            if root.val == q.val:
+                result.append(root)
+            result += self.find_nodes_2(root.left, p, q)
+            result += self.find_nodes_2(root.right, p, q)
+            if len(result) == 2:
+                result.append(root)
+        return result
