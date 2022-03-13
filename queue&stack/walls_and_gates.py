@@ -6,7 +6,6 @@ class Solution:
         m = len(rooms)
         n = len(rooms[0])
 
-        visited = []
         gates = []
         for i in range(m):
             for j in range(n):
