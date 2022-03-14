@@ -65,3 +65,33 @@ class Solution:
                 current_island = island_edge
 
         return result
+
+    # change every visited '1' to '0'
+    def numIslands_correct(self, grid: List[List[str]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        result = 0
+        for i in range(m):
+            for j in range(n):
+                current_island = []
+                if grid[i][j] == '1':
+                    result += 1
+                    current_island.append((i, j))
+                    grid[i][j] = "0"
+                    while current_island:
+                        island_edge = []
+                        for x, y in current_island:
+                            if x - 1 >= 0 and grid[x - 1][y] == '1':
+                                island_edge.append((x - 1, y))
+                                grid[x - 1][y] = '0'
+                            if x + 1 < m and grid[x + 1][y] == '1':
+                                island_edge.append((x + 1, y))
+                                grid[x + 1][y] = '0'
+                            if y - 1 >= 0 and grid[x][y - 1] == '1':
+                                island_edge.append((x, y - 1))
+                                grid[x][y - 1] = '0'
+                            if y + 1 < n and grid[x][y + 1] == '1':
+                                island_edge.append((x, y + 1))
+                                grid[x][y + 1] = '0'
+                        current_island = island_edge
+        return result
