@@ -28,3 +28,14 @@ class Solution:
             head = head.next
         return False
 
+    def hasCycle_2pointers(self, head: Optional[ListNode]) -> bool:
+        if not head:
+            return False
+        i = head
+        j = head.next
+        while i and j and j.next:
+            i = i.next
+            j = j.next.next
+            if i == j:
+                return True
+        return False
