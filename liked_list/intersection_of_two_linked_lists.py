@@ -19,6 +19,7 @@ class Solution:
             a = a.next
             b = headB
         return None
+
     # solution using list of all node value
     def getIntersectionNode_2(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         a, b = headA, headB
