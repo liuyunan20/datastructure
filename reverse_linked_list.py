@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -29,3 +32,15 @@ class Solution:
             head = l1.next
 
         return l2
+
+    # reverse liked list without create new node
+    def reverseList_3(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        old_head = head
+        while old_head.next:
+            node = old_head.next
+            old_head.next = node.next
+            node.next = head
+            head = node
+        return head
