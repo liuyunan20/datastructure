@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -19,3 +22,14 @@ class Solution:
             head = head.next
 
         return new_head
+
+    # use a pre_head as sentinel node
+    def removeElements_2(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        pre_node = ListNode(-1, head)
+        node = pre_node
+        while node.next:
+            if node.next.val == val:
+                node.next = node.next.next
+            else:
+                node = node.next
+        return pre_node.next
