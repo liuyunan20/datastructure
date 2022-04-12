@@ -50,8 +50,8 @@ class MyLinkedList:
                 new_node.next = node.next
                 new_node.prev = node
                 node.next = new_node
-                if node.next:
-                    node.next.prev = new_node
+                if new_node.next:
+                    new_node.next.prev = new_node
 
     def deleteAtIndex(self, index: int) -> None:
         if index == 0 and self.root:
@@ -65,6 +65,21 @@ class MyLinkedList:
                 node.next = node.next.next
                 if node.next:
                     node.next.prev = node
+
+    def deleteAtIndex_2(self, index: int) -> None:
+        if index == 0 and self.root:
+            self.root = self.root.next
+        else:
+            node = self.root
+            while index and node:
+                node = node.next
+                index -= 1
+            if node:
+                node.prev.next = node.next
+                if node.next:
+                    node.next.prev = node.prev
+                node.next = None
+                node.prev = None
 
 
 # Your MyLinkedList object will be instantiated and called as such:
