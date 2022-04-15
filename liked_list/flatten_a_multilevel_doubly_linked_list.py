@@ -24,7 +24,7 @@ class Solution:
                 if node.next:
                     node = node.next
             return node
-                       
+
         if not head:
             return head
         node = head
