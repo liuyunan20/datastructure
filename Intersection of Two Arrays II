@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         intersection = []
@@ -6,3 +9,15 @@ class Solution:
                 intersection.append(num)
                 nums2.remove(num)
         return intersection
+
+    def intersect_hashmap(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dict1 = {}
+        result = []
+        for num in nums1:
+            dict1.setdefault(num, 0)
+            dict1[num] += 1
+        for num in nums2:
+            if dict1.get(num):
+                result.append(num)
+                dict1[num] -= 1
+        return result
