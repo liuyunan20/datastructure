@@ -25,3 +25,13 @@ class Solution:
                 if i == len(in_tree) - 1:
                     return None
                 return in_tree[i + 1]
+
+    def inorderSuccessor_better(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
+        result = None
+        while root:
+            if p.val >= root.val:
+                root = root.right
+            else:
+                result = root
+                root = root.left
+        return result
