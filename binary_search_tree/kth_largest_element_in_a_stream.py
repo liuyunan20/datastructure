@@ -1,4 +1,8 @@
-class KthLargest_tle:
+from typing import List
+
+
+# tle
+class KthLargest1:
 
     def __init__(self, k: int, nums: List[int]):
         self.nums = nums
@@ -7,6 +11,23 @@ class KthLargest_tle:
     def add(self, val: int) -> int:
         self.nums.append(val)
         return sorted(self.nums, reverse=True)[self.k - 1]
+
+
+# slow but pass
+class KthLargest2:
+
+    def __init__(self, k: int, nums: List[int]):
+        self.nums = sorted(nums, reverse=True)
+        self.k = k
+
+    def add(self, val: int) -> int:
+        for i, num in enumerate(self.nums):
+            if val >= num:
+                self.nums.insert(i, val)
+                return self.nums[self.k - 1]
+        self.nums.append(val)
+        return self.nums[self.k - 1]
+
 
 
 # Your KthLargest object will be instantiated and called as such:
