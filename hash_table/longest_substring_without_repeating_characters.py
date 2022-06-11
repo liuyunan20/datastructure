@@ -46,3 +46,19 @@ class Solution:
                 sub_result += 1
             result = max(result, sub_result)
         return result
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:
+            return 0
+        s_dict = {}
+        i, j = -1, 0
+        s = list(s)
+        result = 0
+        while j < len(s):
+            if s_dict.get(s[j]) is not None:
+                i = max(i, s_dict[s[j]])
+            s_dict[s[j]] = j
+            result = max(result, j - i)
+            j += 1
+
+        return result
