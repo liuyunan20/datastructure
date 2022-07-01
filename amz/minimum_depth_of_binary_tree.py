@@ -7,7 +7,7 @@ class TreeNode:
         self.left = left
         self.right = right
 
-        
+
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
