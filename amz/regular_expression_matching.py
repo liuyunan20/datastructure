@@ -14,27 +14,55 @@ class Solution:
             p = list(p)
             i = 0
             j = 0
+            if not p and not s:
+                return True
+            elif not p:
+                return False
+            elif not s:
+                while j + 1 < len(p) and p[j+1] == "*":
+                    j += 2
+                if j == len(p):
+                    return True
+                else:
+                    return False
 
             while i < len(s):
-                if j == len(p) or i < 0:
+                if j == len(p):
                     return False
-                if p[j] == s[i]:
-                    pre = s[i]
-                    j += 1
-                    if j < len(p) and p[j] == "*" and match(s[i:], p[j+1:], pre):
-                        return True
+
+                if p[j] == s[i] or p[j] == '.':
+                    pre = p[j]
+                    if j + 1 < len(p) and p[j+1] == "*":
+                        if match(s[i:], p[j+2:], pre):
+                            return True
+                        elif pre == '.':
+                            while j + 1 < len(p) and p[j+1] == '*':
+                                j += 2
+                            if j == len(p):
+                                return True
+                            if j + 1 < len(p) and '*' in p[j:]:
+                                p2 = p[j:]
+                                x = p2.index('*') - 1
+                                p1 = p2[:x]
+                            else:
+                                p1 = p[j:]
+                            inds = find_sub_list(p1,s[i:])
+                            if not inds:
+                                return False
+                            else:
+                                for ind in inds:
+                                    if match(s[ind+i:], p[j:], pre):
+                                        return True
+                                return False
+                        else:
+                            i += 1
                     else:
                         i += 1
-                elif p[j] == '.':
-                    pre = '.'
-                    j += 1
-                    if j < len(p) and p[j] == "*":
-                        return match(s[i:], p[j:], '.')
-                    else:
-                        i += 1
+                        j += 1
                 elif p[j] != '*':
-                    if j < len(p) - 1 and p[j+1] == '*':
-                        j += 2
+                    pre = p[j]
+                    if j + 1 < len(p) and p[j+1] == '*':
+                        return match(s[i:], p[j+2:], pre)
                     else:
                         return False
                 else:
@@ -52,7 +80,9 @@ class Solution:
                                 return False
                             else:
                                 for ind in inds:
-                                    return match(s[ind+i:], p[j+1:], pre)
+                                    if match(s[ind+i:], p[j+1:], pre):
+                                        return True
+                                return False
                         else:
                             i = len(s) - (len(p) - j - 1)
                             j += 1
@@ -63,7 +93,8 @@ class Solution:
                         return False
                     else:
                         j += 1
-            if j == len(p) or (j == len(p) - 1 and p[j] == '*') or (j == len(p) - 2 and p[j+1] == '*'):
+
+            if match(s[i:], p[j:], pre):
                 return True
             return False
         return match(s, p, '')
