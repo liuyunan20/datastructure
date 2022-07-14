@@ -1,15 +1,15 @@
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
-        def find_sub_list(sl,l):
+    def isMatch(self, string: str, pattern: str) -> bool:
+        def find_sub_list(sl, wl):
             results = []
             sll = len(sl)
-            ll = len(l)
-            for i in range(ll-sll+1):
-                if match(l[i:i+sll], sl, ''):
+            wll = len(wl)
+            for i in range(wll-sll+1):
+                if match(wl[i:i+sll], sl):
                     results.append(i)
             return results
 
-        def match(s, p, pre):
+        def match(s, p):
             s = list(s)
             p = list(p)
             i = 0
@@ -31,11 +31,11 @@ class Solution:
                     return False
 
                 if p[j] == s[i] or p[j] == '.':
-                    pre = p[j]
+
                     if j + 1 < len(p) and p[j+1] == "*":
-                        if match(s[i:], p[j+2:], pre):
+                        if match(s[i:], p[j+2:]):
                             return True
-                        elif pre == '.':
+                        elif p[j] == '.':
                             while j + 1 < len(p) and p[j+1] == '*':
                                 j += 2
                             if j == len(p):
@@ -46,12 +46,12 @@ class Solution:
                                 p1 = p2[:x]
                             else:
                                 p1 = p[j:]
-                            inds = find_sub_list(p1,s[i:])
+                            inds = find_sub_list(p1, s[i:])
                             if not inds:
                                 return False
                             else:
                                 for ind in inds:
-                                    if match(s[ind+i:], p[j:], pre):
+                                    if match(s[ind+i:], p[j:]):
                                         return True
                                 return False
                         else:
@@ -60,41 +60,11 @@ class Solution:
                         i += 1
                         j += 1
                 elif p[j] != '*':
-                    pre = p[j]
                     if j + 1 < len(p) and p[j+1] == '*':
-                        return match(s[i:], p[j+2:], pre)
+                        return match(s[i:], p[j+2:])
                     else:
                         return False
-                else:
-                    while pre != '.' and i < len(s) - (len(p) - j - 1) and s[i] == pre:
-                        i += 1
-                    if pre == '.':
-                        while j + 2 < len(p) and p[j+2] == '*':
-                            j += 2
-                        if j + 1 < len(p) and '*' in p[j+1:]:
-                            p2 = p[j+1:]
-                            x = p2.index('*') - 1
-                            p1 = p2[:x]
-                            inds = find_sub_list(p1,s[i:])
-                            if not inds:
-                                return False
-                            else:
-                                for ind in inds:
-                                    if match(s[ind+i:], p[j+1:], pre):
-                                        return True
-                                return False
-                        else:
-                            i = len(s) - (len(p) - j - 1)
-                            j += 1
-                            continue
-                    if i == len(s) and j == len(p) - 1:
-                        return True
-                    elif i == len(s) and j != len(p) - 1:
-                        return False
-                    else:
-                        j += 1
 
-            if match(s[i:], p[j:], pre):
-                return True
-            return False
-        return match(s, p, '')
+            return match(s[i:], p[j:])
+
+        return match(string, pattern)
