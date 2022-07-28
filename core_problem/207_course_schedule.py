@@ -29,13 +29,13 @@ class Solution:
         # until no following courses could be found
         for course in course0:
             queue.append(course)
-            while queue:
-                bi = queue.pop(0)
-                if bi_ai.get(bi):
-                    for ai in bi_ai[bi]:
-                        course_step[ai] -= 1
-                        if course_step[ai] == 0:
-                            queue.append(ai)
+        while queue:
+            bi = queue.pop(0)
+            if bi_ai.get(bi):
+                for ai in bi_ai[bi]:
+                    course_step[ai] -= 1
+                    if course_step[ai] == 0:
+                        queue.append(ai)
         # check whether there is course which still needs preceding courses, yes return False
         for course in course_step:
             if course_step[course] > 0:
