@@ -62,3 +62,29 @@ class Solution:
             if not dfs(ai, [ai]):
                 return False
         return True
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # DFS
+        ai_bi = {}  # store course: [preceding courses]
+        visited = set()
+        for ai, bi in prerequisites:
+            if ai == bi:
+                return False
+            ai_bi.setdefault(ai, []).append(bi)
+
+        def dfs(course):
+            if course in visited:
+                return False
+            if not ai_bi.get(course):
+                return True
+            visited.add(course)
+            for bi in ai_bi[course]:
+                if not dfs(bi):
+                    return False
+            visited.remove(course)
+            ai_bi[course] = []
+            return True
+        for ai in ai_bi:
+            if not dfs(ai):
+                return False
+        return True
