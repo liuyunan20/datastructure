@@ -18,3 +18,12 @@ class Solution:
         tree.append(root.val)
         tree += self.inorderTraversal(root.right)
         return tree
+
+    def inorderTraversal_2(self, root: Optional[TreeNode]) -> List[int]:
+        tree = []
+        if not root:
+            return
+        self.inorderTraversal(root.left)
+        tree.append(root.val)
+        self.inorderTraversal(root.right)
+        return tree
