@@ -35,6 +35,5 @@ class Solution:
                 if root.left:
                     stack.append(root.left)
                 root = stack.pop()
-            if (not root.left and not root.right) or root in visited:
-                tree.append(root.val)
+            tree.append(root.val)
         return tree
