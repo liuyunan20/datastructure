@@ -58,3 +58,18 @@ class Solution:
                     i += 1
                 continue
         return result
+
+    def romanToInt_2(self, s: str) -> int:
+        s = s[::-1]
+        length = len(s)
+        result = 0
+        i = 0
+        roman_int = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        while i < length:
+            if i + 1 < length and roman_int[s[i]] > roman_int[s[i + 1]]:
+                result += roman_int[s[i]] - roman_int[s[i + 1]]
+                i += 2
+            else:
+                result += roman_int[s[i]]
+                i += 1
+        return result
