@@ -4,7 +4,7 @@ class ListNode:
         self.val = val
         self.next = next
 
-        
+
 class Solution:
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         find_big = False
