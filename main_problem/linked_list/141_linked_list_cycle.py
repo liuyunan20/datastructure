@@ -14,3 +14,12 @@ class Solution:
             visited.add(head)
             head = head.next
         return False
+
+    def hasCycle_3(self, head: Optional[ListNode]) -> bool:
+        faster = head
+        while head and faster and faster.next:
+            head = head.next
+            faster = faster.next.next
+            if head == faster:
+                return True
+        return False
