@@ -9,7 +9,7 @@ class Solution:
             mid = nums[i]
             right = nums[end]
             if left <= mid <= right:
-                result = min(result, mid)
+                result = min(result, left)
                 start += 1
                 end -= 1
                 continue
