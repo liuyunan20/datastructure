@@ -7,16 +7,22 @@ class Solution:
             left = arr[start]
             mid = arr[i]
             right = arr[end]
-            if abs(x - mid) == 0:
+            if mid == x:
                 break
-            if abs(x - left) > abs(x - mid):
+            if mid < x:
                 start = i
-            elif abs(x - left) < abs(x - mid):
+            if mid > x:
                 end = i
-            else:
-                if abs(x - left) > abs(x - right):
-                    i = end
+            if end == start:
                 break
+            if end == start + 1:
+                if abs(x - arr[start]) > abs(x - arr[end]):
+                    i = end
+                else:
+                    i = start
+                break
+        while i - 1 >= 0 and arr[i - 1] == arr[i]:
+            i -= 1
         print(i)
         result = [arr[i]]
         f = -1
