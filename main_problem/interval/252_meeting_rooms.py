@@ -1,6 +1,6 @@
 class Solution:
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
-        intervals.sort(key= lambda x: x[0])
+        intervals.sort(key=lambda x: x[0])
         n = len(intervals)
         i = 0
         while i + 1 < n:
@@ -8,3 +8,4 @@ class Solution:
                 return False
             i += 1
         return True
+
