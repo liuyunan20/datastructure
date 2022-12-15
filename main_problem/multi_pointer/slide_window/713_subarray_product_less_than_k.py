@@ -74,3 +74,19 @@ class Solution:
             result += i - j + 1
             i += 1
         return result
+
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if k <= 1:
+            return 0
+        n = len(nums)
+        i = j = 0
+        result = 0
+        prod = 1
+        while i < n:
+            prod *= nums[i]
+            while prod >= k:
+                prod = prod // nums[j]
+                j += 1
+            result += i - j + 1
+            i += 1
+        return result
