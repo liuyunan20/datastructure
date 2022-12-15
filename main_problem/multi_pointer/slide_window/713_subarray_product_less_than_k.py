@@ -60,3 +60,17 @@ class Solution:
                     window -= 1
             i += 1
         return result
+
+    def numSubarrayProductLessThanK_4(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        i = 0
+        result = 0
+        while i < n:
+            j = 0
+            prod = math.prod(nums[j: i + 1])
+            while prod >= k and j <= i:
+                prod = prod // nums[j]
+                j += 1
+            result += i - j + 1
+            i += 1
+        return result
