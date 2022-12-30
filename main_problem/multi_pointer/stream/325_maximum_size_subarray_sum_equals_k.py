@@ -24,7 +24,7 @@ class Solution:
         sub_sum = sum(nums)
         while i <= j:
             current_sum = sub_sum
-            while j >= i:
+            while j >= i + length:
                 if current_sum == k:
                     length = max(length, j - i + 1)
                     break
@@ -33,4 +33,18 @@ class Solution:
             j = n - 1
             sub_sum -= nums[i]
             i += 1
+        return length
+
+    def maxSubArrayLen(self, nums: List[int], k: int) -> int:
+        pre_sum = 0
+        length = 0
+        sum_index = {}
+        for i, num in enumerate(nums):
+            pre_sum += num
+            if pre_sum == k:
+                length = i + 1
+            if pre_sum - k in sum_index:
+                length = max(length, i - sum_index[pre_sum - k])
+            if pre_sum not in sum_index:
+                sum_index[pre_sum] = i
         return length
