@@ -24,6 +24,7 @@ class Solution:
 
         def move(now, direction):
             i, j = now
+            directions[(i, j)].add(direction)
             if direction == "left":
                 while j >= 0 and maze[i][j] == 0:
                     j -= 1
@@ -46,14 +47,18 @@ class Solution:
                 return [i - 1, j]
 
         queue = [start]
+        visited = set()
         while queue:
-            i, j = queue.pop(0)
+            p = queue.pop(0)
+            i, j = p
             ds = find_direction(i, j)
             if not ds:
-                return False
+                continue
             for d in ds:
-                stop = move((i, j), d)
+                stop = move(p, d)
                 if stop == destination:
                     return True
-                queue.append(stop)
+                i, j = stop
+                if find_direction(i, j):
+                    queue.append(stop)
         return False
