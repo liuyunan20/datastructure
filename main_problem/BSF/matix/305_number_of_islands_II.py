@@ -35,3 +35,28 @@ class Solution:
             num -= connect - 1
             cur_num.append(num)
         return cur_num
+
+    def numIslands2_bfs_tle(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
+        l = len(positions)
+        answer = []
+        for i in range(l):
+            lands = positions[:i + 1]
+            visited = set()
+            counter = 0
+            for p in lands:
+                po = tuple(p)
+                queue = []
+                if po not in visited:
+                    queue.append(po)
+                    counter += 1
+                visited.add(po)
+                while queue:
+                    pos = queue.pop(0)
+                    for d in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                        r = pos[0] + d[0]
+                        c = pos[1] + d[1]
+                        if 0 <= r < m and 0 <= c < n and (r, c) not in visited and [r, c] in lands:
+                            queue.append((r, c))
+                            visited.add((r, c))
+            answer.append(counter)
+        return answer
