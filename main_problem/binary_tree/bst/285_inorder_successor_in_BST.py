@@ -9,17 +9,20 @@ class TreeNode:
 
 class Solution:
     def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
-        def get_inorder(node):
-            in_tree = []
-            if not node:
-                return in_tree
-            in_tree += get_inorder(node.left)
-            in_tree.append(node)
-            in_tree += get_inorder(node.right)
-            return in_tree
-        tree = get_inorder(root)
-        for i in range(len(tree)):
-            if tree[i] == p:
-                if i == len(tree) - 1:
-                    return None
-                return tree[i + 1]
+        def get_left_leave(node):
+            while node.left:
+                node = node.left
+            return node
+
+
+        def get_next(node, p, result):
+            if node.val == p.val:
+                if node.right:
+                    return get_left_leave(node.right)
+                else:
+                    return result
+            if node.val > p.val:
+                return get_next(node.left, p, node)
+            if node.val < p.val:
+                return get_next(node.right, p, result)
+        return get_next(root, p, None)
