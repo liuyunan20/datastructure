@@ -26,3 +26,21 @@ class Solution:
             if node.val < p.val:
                 return get_next(node.right, p, result)
         return get_next(root, p, None)
+
+    def inorderSuccessor_iterator(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
+        stack = [root]
+        tree = []
+        while stack:
+            node = stack.pop()
+            if not node.left and not node.right:
+                if tree and tree[-1] == p.val:
+                    return node
+                tree.append(node.val)
+            else:
+                if node.right:
+                    stack.append(node.right)
+                    node.right = None
+                stack.append(node)
+                if node.left:
+                    stack.append(node.left)
+                    node.left = None
