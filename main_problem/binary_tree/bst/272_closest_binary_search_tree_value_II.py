@@ -46,3 +46,49 @@ class Solution:
                 i += 1
             k -= 1
         return result
+
+    def closestKValues_iterator(self, root: Optional[TreeNode], target: float, k: int) -> List[int]:
+        stack = [root]
+        inorder_tree = []
+        closest_idx = -1
+        while stack:
+            node = stack.pop()
+            if not node.left and not node.right:
+                if len(inorder_tree) == 1 and inorder_tree[0] >= target:
+                    closest_idx = 0
+                if inorder_tree and inorder_tree[-1] <= target <= node.val:
+                    if target - inorder_tree[-1] < node.val - target:
+                        closest_idx = len(inorder_tree) - 1
+                    else:
+                        closest_idx = len(inorder_tree)
+                inorder_tree.append(node.val)
+            else:
+                if node.right:
+                    stack.append(node.right)
+                    node.right = None
+                stack.append(node)
+                if node.left:
+                    stack.append(node.left)
+                    node.left = None
+        n = len(inorder_tree)
+        if closest_idx == -1:
+            closest_idx = n - 1
+        i = 1
+        j = -1
+        result = [inorder_tree[closest_idx]]
+        while k - 1:
+            if 0 <= closest_idx + j < closest_idx + i < n:
+                if abs(target - inorder_tree[closest_idx + i]) < abs(target - inorder_tree[closest_idx + j]):
+                    result.append(inorder_tree[closest_idx + i])
+                    i += 1
+                else:
+                    result.append(inorder_tree[closest_idx + j])
+                    j -= 1
+            elif 0 <= closest_idx + j:
+                result.append(inorder_tree[closest_idx + j])
+                j -= 1
+            elif closest_idx + i < n:
+                result.append(inorder_tree[closest_idx + i])
+                i += 1
+            k -= 1
+        return result
