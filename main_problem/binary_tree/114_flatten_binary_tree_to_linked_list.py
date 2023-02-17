@@ -15,12 +15,13 @@ class Solution:
         """
         if not root:
             return None
-        tree = []
+        pre = TreeNode(0)
         nodes = [root]
         while nodes:
             node = nodes.pop()
             if not node.left and not node.right:
-                tree.append(node)
+                pre.right = node
+                pre = node
                 continue
             if node.right:
                 nodes.append(node.right)
@@ -29,5 +30,3 @@ class Solution:
                 nodes.append(node.left)
                 node.left = None
             nodes.append(node)
-        for i in range(len(tree) - 1):
-            tree[i].right = tree[i + 1]
