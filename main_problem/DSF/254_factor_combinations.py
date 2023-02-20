@@ -6,15 +6,18 @@ class Solution:
         if n < 2:
             return []
         result = []
+
         def dfs(comb, idx, prod):
-            if prod == 1:
+            if comb:
+                comb.append(prod)
                 result.append(list(comb))
-                return
-            if prod // 1 != prod:
-                return
-            for i in range(idx, n // 2 + 1):
-                comb.append(i)
-                dfs(comb, i, prod / i)
                 comb.pop()
+                return
+            for i in range(idx, int(math.sqrt(prod) + 1)):
+                if prod % i == 0:
+                    comb.append(i)
+                    dfs(comb, i, prod // i)
+                    comb.pop()
+
         dfs([], 2, n)
         return result
