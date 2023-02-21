@@ -12,7 +12,7 @@ class Solution:
                 comb.append(prod)
                 result.append(list(comb))
                 comb.pop()
-                return
+
             for i in range(idx, int(math.sqrt(prod) + 1)):
                 if prod % i == 0:
                     comb.append(i)
