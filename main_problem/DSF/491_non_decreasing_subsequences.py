@@ -9,8 +9,8 @@ class Solution:
             if idx == n + 1:
                 return
             if len(subseq) > 1:
-                if subseq not in result:
-                    result.append(list(subseq))
+                if tuple(subseq) not in result:
+                    result.add(tuple(subseq))
             for i in range(idx, n):
                 if not subseq or subseq[-1] <= nums[i]:
                     subseq.append(nums[i])
