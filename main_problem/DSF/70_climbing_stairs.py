@@ -1,9 +1,6 @@
 class Solution:
-    def climbStairs_tle(self, n: int) -> int:
-        if n == 1:
-            return 1
-        if n == 2:
-            return 2
-        a = self.climbStairs(n - 1)
-        b = self.climbStairs(n - 2)
-        return a + b
+    def climbStairs(self, n: int) -> int:
+        result = [1, 2]
+        for i in range(2, n):
+            result.append(result[i - 1] + result[i - 2])
+        return result[n - 1]
