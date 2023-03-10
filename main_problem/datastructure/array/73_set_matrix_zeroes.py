@@ -8,6 +8,9 @@ class Solution:
         """
         m = len(matrix)
         n = len(matrix[0])
+
+
+
         first_line_0 = False
         first_col_0 = False
         for x in matrix[0]:
