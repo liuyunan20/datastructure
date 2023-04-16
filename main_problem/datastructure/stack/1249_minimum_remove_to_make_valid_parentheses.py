@@ -3,18 +3,14 @@ class Solution:
         s_list = list(s)
         stack = []
         i = 0
-        while s_list:
-            element = s_list.pop(0)
-            if element == "(":
-                stack.append((element, i))
-            if element == ")" and stack and stack[-1][0] == "(":
+        while i < len(s):
+            if s[i] == "(":
+                stack.append((s[i], i))
+            elif s[i] == ")" and stack and stack[-1][0] == "(":
                 stack.pop()
-                i += 1
-                continue
-            if element == ")" and (not stack or stack[-1][0] != "("):
-                stack.append((element, i))
+            elif s[i] == ")" and (not stack or stack[-1][0] != "("):
+                stack.append((s[i], i))
             i += 1
-        s_list = list(s)
         for element, i in stack:
             s_list[i] = ""
         return "".join(s_list)
