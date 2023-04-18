@@ -9,20 +9,16 @@ class ListNode:
 
 
 class Solution:
-    def nextLargerNodes_tle(self, head: Optional[ListNode]) -> List[int]:
-        i = 0
+    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+        stack = []
         answer = []
-        nodes = {}
+        i = 0
         while head:
             answer.append(0)
-            nodes[i] = head
-            discard = []
-            for j in nodes:
-                if head.val > nodes[j].val:
-                    answer[j] = head.val
-                    discard.append(j)
-            for j in discard:
-                nodes.pop(j)
+            while stack and stack[-1][0] < head.val:
+                answer[stack[-1][1]]= head.val
+                stack.pop()
+            stack.append((head.val, i))
             i += 1
             head = head.next
         return answer
