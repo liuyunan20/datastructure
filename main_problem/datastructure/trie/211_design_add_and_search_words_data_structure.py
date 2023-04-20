@@ -4,7 +4,7 @@ class WordDictionary:
         self.dict = {}
 
     def addWord(self, word: str) -> None:
-        self.dict.setdefault(len(word), []).append(word)
+        self.dict.setdefault(len(word), set()).add(word)
 
     def search(self, word: str) -> bool:
         n = len(word)
