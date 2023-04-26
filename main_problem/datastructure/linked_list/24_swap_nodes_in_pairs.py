@@ -10,16 +10,15 @@ class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head:
             return None
-        nodes = []
-        while head:
-            nodes.append(head)
-            head = head.next
-        i = 0
-        n = len(nodes)
-        while i + 1 < n:
-            nodes[i], nodes[i + 1] = nodes[i + 1], nodes[i]
-            i += 2
-        for i in range(n - 1):
-            nodes[i].next = nodes[i + 1]
-        nodes[-1].next = None
-        return nodes[0]
+        if not head.next:
+            return head
+        pre = ListNode()
+        result = head.next
+        while head and head.next:
+            helper = head.next.next
+            head.next.next = head
+            pre.next = head.next
+            head.next = helper
+            pre = head
+            head = helper
+        return result
