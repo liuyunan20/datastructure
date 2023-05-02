@@ -14,10 +14,10 @@ class Solution:
             l = len(queue)
             for _ in range(l):
                 i = queue.pop(0)
-                visited.add(i)
                 for j in range(nums[i] + 1):
                     d = i + j
                     if d >= n - 1:
                         return step
                     if d not in visited:
                         queue.append(d)
+                        visited.add(d)
