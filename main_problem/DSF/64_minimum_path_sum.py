@@ -2,22 +2,22 @@ from typing import List
 
 
 class Solution:
-    def minPathSum_tle(self, grid: List[List[int]]) -> int:
+    def minPathSum(self, grid: List[List[int]]) -> int:
         m = len(grid)
         n = len(grid[0])
-        result = []
+        memo = {}
 
-        def backtrack(path, i, j):
-            if i == m - 1 and j == n - 1:
-                result.append(path + grid[i][j])
-                return
-            elif i < m - 1 and j < n - 1:
-                backtrack(path + grid[i][j], i + 1, j)
-                backtrack(path + grid[i][j], i, j + 1)
-            elif i < m - 1:
-                backtrack(path + grid[i][j], i + 1, j)
-            elif j < n - 1:
-                backtrack(path + grid[i][j], i, j + 1)
+        def help(i, j):
+            if i > 0 and j > 0:
+                memo[(i, j)] = min(memo[(i - 1, j)] + grid[i][j], memo[(i, j - 1)] + grid[i][j])
+            elif i > 0:
+                memo[(i, j)] = memo[(i - 1, j)] + grid[i][j]
+            elif j > 0:
+                memo[(i, j)] = memo[(i, j - 1)] + grid[i][j]
+            else:
+                memo[(i, j)] = grid[i][j]
 
-        backtrack(0, 0, 0)
-        return min(result)
+        for i in range(m):
+            for j in range(n):
+                help(i, j)
+        return memo[(m - 1, n - 1)]
