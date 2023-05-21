@@ -1,31 +1,39 @@
 class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
-        def find_land(x, y, land):
+        def find_land(x, y):
             for h, v in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 a = x + h
                 b = y + v
                 if 0 <= a < n and 0 <= b < n and grid[a][b] == 1 and (a, b) not in land:
                     land.add((a, b))
-                    find_land(a, b, land)
+                    find_land(a, b)
 
-        land1 = set()
-        land2 = set()
+        land = set()
         n = len(grid)
-        land = 1
+        found1 = False
         for i in range(n):
+            if found1:
+                break
             for j in range(n):
-                if land == 2 and (i, j) not in land1 and grid[i][j] == 1:
-                    land2.add((i, j))
-                    find_land(i, j, land2)
-                if land == 1 and grid[i][j] == 1:
-                    land1.add((i, j))
-                    find_land(i, j, land1)
-                    land = 2
+                if grid[i][j] == 1:
+                    land.add((i, j))
+                    find_land(i, j)
+                    found1 = True
+                    break
 
-        result = 2 * n
-        for i, j in land1:
-            for x, y in land2:
-                distance = abs(i - x) + abs(j - y) - 1
-                result = min(result, distance)
-        return result
+        result = -1
+        queue = list(land)
+        while queue:
+            result += 1
+            l = len(queue)
+            for _ in range(l):
+                i, j = queue.pop(0)
+                for h, v in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    a = i + h
+                    b = j + v
+                    if 0 <= a < n and 0 <= b < n:
+                        if grid[a][b] == 0:
+                            queue.append((a, b))
+                        if grid[a][b] == 1 and (a, b) not in land:
+                            return result
 
