@@ -14,7 +14,7 @@ class Solution:
         land = 1
         for i in range(n):
             for j in range(n):
-                if land == 2 and grid[i][j] == 1:
+                if land == 2 and (i, j) not in land1 and grid[i][j] == 1:
                     land2.add((i, j))
                     find_land(i, j, land2)
                 if land == 1 and grid[i][j] == 1:
@@ -25,7 +25,7 @@ class Solution:
         result = 2 * n
         for i, j in land1:
             for x, y in land2:
-                distance = max(abs(i - x) - 1, 0) + max(abs(j - y) - 1, 0) + 1
+                distance = abs(i - x) + abs(j - y) - 1
                 result = min(result, distance)
         return result
 
