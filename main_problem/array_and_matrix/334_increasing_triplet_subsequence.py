@@ -6,9 +6,13 @@ class Solution:
         n = len(nums)
         if n < 3:
             return False
-        for i in range(1, n - 1):
-            left = min(nums[:i])
-            right = max(nums[i + 1:])
-            if left < nums[i] < right:
+        left = [nums[0]]
+        right = [nums[n - 1]]
+        for i in range(1, n):
+            left.append(min(left[-1], nums[i]))
+        for i in range(n - 2, -1, -1):
+            right.insert(0, max(right[0], nums[i]))
+        for i in range(n):
+            if left[i] < nums[i] < right[i]:
                 return True
         return False
