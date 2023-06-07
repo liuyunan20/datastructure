@@ -9,6 +9,6 @@ class Solution:
                 return False
             new += digits[num[i]]
             i += 1
-        if new[::-1] == num:
-            return True
-        return False
+        if new[::-1] != num:
+            return False
+        return True
