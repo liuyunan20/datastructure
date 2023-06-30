@@ -7,23 +7,20 @@ class ListNode:
 
 class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        odd_nodes = []
-        even_nodes = []
         i = 1
+        odd = ListNode()
+        dummy = odd
+        hook = ListNode()
+        even = hook
         while head:
             if i % 2 == 0:
-                even_nodes.append(head)
+                even.next = head
+                even = head
             else:
-                odd_nodes.append(head)
+                odd.next = head
+                odd = head
             head = head.next
             i += 1
-        dummy = ListNode()
-        cur = dummy
-        for node in odd_nodes:
-            cur.next = node
-            cur = cur.next
-        for node in even_nodes:
-            cur.next = node
-            cur = cur.next
-        cur.next = None
+        odd.next = hook.next
+        even.next = None
         return dummy.next
