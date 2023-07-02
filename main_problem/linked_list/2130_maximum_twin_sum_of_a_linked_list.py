@@ -10,13 +10,11 @@ class ListNode:
 
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
-        twin = {}
-        i = 0
+        nodes = []
         while head:
-            twin[i] = head.val
-            i += 1
+            nodes.append(head.val)
             head = head.next
         result = 0
-        for x in range(i // 2):
-            result = max(result, twin[x] + twin[i-1-x])
+        while nodes:
+            result = max(result, nodes.pop(0) + nodes.pop())
         return result
