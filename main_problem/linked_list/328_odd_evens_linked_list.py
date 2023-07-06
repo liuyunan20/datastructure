@@ -13,8 +13,7 @@ class Solution:
         hook = ListNode()
         even = hook
         while head:
-            if i % 2 == 0:
-                even.next = head
+                       even.next = head
                 even = head
             else:
                 odd.next = head
