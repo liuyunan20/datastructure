@@ -7,24 +7,11 @@ class TreeNode:
 
 class Solution:
     def longestZigZag(self, root: Optional[TreeNode]) -> int:
-        def helper(node, dct):
+        def helper(node):
             if not node:
-                return 0
+                return [-1, -1, -1]
+            left = helper(node.left)
+            right = helper(node.right)
+            return [left[1] + 1, right[0] + 1, max(left[1] + 1, right[0] + 1, left[2], right[2])]
 
-            if dct == 'r':
-                return helper(node.left, 'l') + 1
-            if dct == 'l':
-                return helper(node.right, 'r') + 1
-
-        nodes = [(root.left, 'l'), (root.right, 'r')]
-        result = 0
-        while nodes:
-            l = len(nodes)
-            for _ in range(l):
-                node, dct = nodes.pop(0)
-                result = max(result, helper(node, dct))
-                if node and node.left:
-                    nodes.append((node.left, 'l'))
-                if node and node.right:
-                    nodes.append((node.right, 'r'))
-        return result
+        return helper(root)[2]
