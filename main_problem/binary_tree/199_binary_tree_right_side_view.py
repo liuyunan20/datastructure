@@ -10,19 +10,13 @@ class TreeNode:
 
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) ->List[int]:
-        if not root:
-            return []
-        tree = []
-        nodes = [root]
-        while nodes:
-            current_level = []
-            for _ in range(len(nodes)):
-                node = nodes.pop(0)
-                current_level.append(node.val)
-                if node.left:
-                    nodes.append(node.left)
-                if node.right:
-                    nodes.append(node.right)
-            tree.append(current_level)
-        print(tree)
-        return [x[-1] for x in tree]
+        right = []
+
+        def helper(node):
+            if not node:
+                return
+            right.append(node.val)
+            helper(node.right)
+
+        helper(root)
+        return right
