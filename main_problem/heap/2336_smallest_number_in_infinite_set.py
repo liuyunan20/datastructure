@@ -1,3 +1,6 @@
+import heapq
+
+
 class SmallestInfiniteSet:
 
     def __init__(self):
