@@ -1,8 +1,12 @@
+from typing import List
+import math
+
+
 class Solution:
     def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
         if len(dist) > hour + 1:
             return -1
-        result = 1
+        result = math.ceil(sum(dist) / hour)
         while True:
             time = 0
             for i in range(len(dist) - 1):
