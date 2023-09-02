@@ -3,19 +3,19 @@ from typing import List
 
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        n = len(nums)
-        if n == 1:
-            return True
+        visited = {0,}
         queue = [0]
-        visited = set()
+        n = len(nums)
         while queue:
             l = len(queue)
             for _ in range(l):
-                i = queue.pop(0)
-                for s in range(1, nums[i] + 1):
-                    if i + s not in visited:
-                        if i + s >= n - 1:
-                            return True
-                        visited.add(i + s)
-                        queue.append(i + s)
+                next_step = queue.pop()
+                if nums[next_step] == n - 1:
+                    return True
+                for i in range(1, nums[next_step] + 1):
+                    if next_step + i >= n - 1:
+                        return True
+                    if next_step + i not in visited:
+                        queue.append(next_step + i)
+                        visited.add(next_step + i)
         return False
