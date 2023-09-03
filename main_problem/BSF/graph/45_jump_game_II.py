@@ -6,18 +6,18 @@ class Solution:
         n = len(nums)
         if n == 1:
             return 0
+        visited = {0, }
         queue = [0]
-        visited = set()
         step = 0
         while queue:
             step += 1
             l = len(queue)
             for _ in range(l):
-                i = queue.pop(0)
-                for j in range(nums[i] + 1):
-                    d = i + j
-                    if d >= n - 1:
+                position = queue.pop(0)
+                for i in range(1, nums[position] + 1):
+                    next_p = position + i
+                    if next_p >= n - 1:
                         return step
-                    if d not in visited:
-                        queue.append(d)
-                        visited.add(d)
+                    if next_p not in visited:
+                        queue.append(next_p)
+                        visited.add(next_p)
