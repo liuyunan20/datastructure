@@ -3,22 +3,18 @@ from typing import List
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
+        zeros = []
+        result = [0 for _ in range(len(nums))]
         product = 1
-        zero = 0
-        i0 = -1
-        for i in range(len(nums)):
-            if nums[i] == 0:
-                zero += 1
-                i0 = i
+        for i, num in enumerate(nums):
+            if num == 0:
+                zeros.append(i)
             else:
-                product *= nums[i]
-        if zero > 1:
-            result = [0] * len(nums)
-        elif zero == 1:
-            result = [0] * len(nums)
-            result[i0] = product
-        else:
-            result = []
-            for num in nums:
-                result.append(int(product / num))
+                product *= num
+
+        if len(zeros) == 1:
+            result[zeros[0]] = product
+        if len(zeros) == 0:
+            for i in range(len(nums)):
+                result[i] = product // nums[i]
         return result
