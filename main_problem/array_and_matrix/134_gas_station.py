@@ -6,7 +6,7 @@ class Solution:
             while idx != start:
                 tank += gas[idx] - cost[idx]
                 if tank < 0:
-                    end = idx
+                    end[0] = idx
                     return False
                 else:
                     idx = 0 if idx == len(gas) - 1 else idx + 1
@@ -16,12 +16,15 @@ class Solution:
             return -1
         n = len(gas)
         i = 0
-        end = -1
+        end = [-1]
         while i < n:
-            if end >= 0:
-                i = end
-            else:
+            if gas[i] == 0:
                 i += 1
+                continue
+            if end[0] >= 0:
+                i = max(i, end[0])
             if circle(i):
                 return i
+            else:
+                i += 1
         return -1
