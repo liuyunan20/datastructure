@@ -23,9 +23,7 @@ class Solution:
         next_top = max(high_level)
         i = 0
         while next_top and i < len(high_level):
-            if high_level[i] == next_top:
-                tops.append(high_idx[i])
-            elif high_level[i] >= left_level:
+            if high_level[i] == next_top or high_level[i] >= left_level:
                 tops.append(high_idx[i])
                 left_level = high_level[i]
             next_top = max(high_level[i + 1:]) if high_level[i + 1:] else 0
