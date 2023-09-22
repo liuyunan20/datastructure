@@ -33,14 +33,15 @@ class Solution:
                     print(space)
                     lines[i] = space.join(line)
                 else:
-                    left = " " * ((spaces -  spaces % (m - 1)) // (m - 2))
-                    last = " " * (spaces % (m - 1))
+                    insert_space = [1 for _ in range(m - 1)]
+                    while spaces - m + 1 > 0:
+                        for j in range(m - 1):
+                            if spaces - m + 1 > 0:
+                                insert_space[j] += 1
+                                spaces -= 1
                     lines[i] = ""
                     for j in range(m - 1):
-                        if j == m - 2:
-                            lines[i] += line[j] + last
-                        else:
-                            lines[i] += line[j] + left
+                        lines[i] += line[j] + " " * insert_space[j]
                     lines[i] += line[m - 1]
             i += 1
         lines[n - 1] = " ".join(lines[n - 1][0])
