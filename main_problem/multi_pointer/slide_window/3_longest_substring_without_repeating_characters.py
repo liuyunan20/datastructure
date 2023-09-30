@@ -7,10 +7,13 @@ class Solution:
         while j < n:
             if s[j] not in letters:
                 letters[s[j]] = j
-                j += 1
-                result = max(result, j - i)
+                result = max(result, j - i + 1)
             else:
-                i += 1
+                i = letters[s[j]] + 1
                 letters[s[j]] = j
-                j += 1
+                keys = list(letters.keys())
+                for l in keys:
+                    if letters[l] < i:
+                        letters.pop(l)
+            j += 1
         return result
