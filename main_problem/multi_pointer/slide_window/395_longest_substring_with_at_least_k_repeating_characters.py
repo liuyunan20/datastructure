@@ -54,5 +54,5 @@ class Solution:
                     del freq[s[j]]
                 j -= 1
             else:
-                i =
+                i = 1
         return 0
