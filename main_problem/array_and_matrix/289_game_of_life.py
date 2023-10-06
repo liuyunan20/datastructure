@@ -7,33 +7,24 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
 
-        def count_1(row, column):
-            m = len(board)
-            n = len(board[0])
-            count = 0
-            for offset_row in range(-1, 2):
-                for offset_col in range(-1, 2):
-                    if not (offset_row == 0 and offset_col == 0):
-                        if 0 <= row + offset_row < m and 0 <= column + offset_col < n \
-                                and board[row + offset_row][column + offset_col] == 1:
-                            count += 1
-            return count
+        def change(x, y, m, n):
+            neighbor = 0
+            for h in range(-1, 2):
+                for v in range(-1, 2):
+                    if h == 0 and v == 0:
+                        continue
+                    a = x + h
+                    b = y + v
+                    if 0 <= a < m and 0 <= b < n and copy[a][b] == 1:
+                        neighbor += 1
+            if copy[x][y] == 0 and neighbor == 3:
+                board[x][y] = 1
+            if copy[x][y] == 1 and (neighbor > 3 or neighbor < 2):
+                board[x][y] = 0
 
-        to_one = []
-        to_zero = []
+        copy = [list(row) for row in board]
         m = len(board)
         n = len(board[0])
-        # find out the positions needing to change
         for i in range(m):
             for j in range(n):
-                ones = count_1(i, j)
-                if (ones < 2 or ones > 3) and board[i][j] == 1:
-                    to_zero.append((i, j))
-                if ones == 3 and board[i][j] == 0:
-                    to_one.append((i, j))
-
-        # change the positions found in the above step
-        for i, j in to_one:
-            board[i][j] = 1
-        for i, j in to_zero:
-            board[i][j] = 0
+                change(i, j, m, n)
