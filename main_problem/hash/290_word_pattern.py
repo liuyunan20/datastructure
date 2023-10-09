@@ -1,15 +1,20 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        s = s.split(" ")
         pattern = list(pattern)
-        pattern_word = {}
-        visited = set()
-        if len(pattern) != len(s):
+        s = s.split()
+        m = len(pattern)
+        n = len(s)
+        if m != n:
             return False
-        for letter, word in zip(pattern, s):
-            if (not pattern_word.get(letter) and word in visited) or (pattern_word.get(letter) and pattern_word[letter] != word):
-                return False
+        pattern_s = {}
+        s_pattern = {}
+        for i in range(n):
+            if not pattern_s.get(pattern[i]) and not s_pattern.get(s[i]):
+                pattern_s[pattern[i]] = s[i]
+                s_pattern[s[i]] = pattern[i]
+            elif pattern_s.get(pattern[i]) and s_pattern.get(s[i]) and pattern_s[pattern[i]] == s[i] and \
+                    s_pattern[s[i]] == pattern[i]:
+                continue
             else:
-                pattern_word[letter] = word
-            visited.add(word)
+                return False
         return True
