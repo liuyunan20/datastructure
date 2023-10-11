@@ -1,7 +1,9 @@
+from typing import List
+
+
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        result = {}
+        group = {}
         for word in strs:
-            key = "".join(sorted(list(word)))
-            result.setdefault(key, []).append(word)
-        return list(result.values())
+            group.setdefault(''.join(sorted(list(word))), []).append(word)
+        return group.values()
