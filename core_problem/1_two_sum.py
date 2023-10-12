@@ -3,12 +3,12 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        value_index = {}
+        indices = {}
         for i, num in enumerate(nums):
-            if target - num in value_index:
-                return [value_index[target-num], i]
-            value_index[num] = i
-
-
-t = Solution()
-print(t.twoSum([4, 2, 7, 11, 15], 9))
+            indices.setdefault(num, []).append(i)
+        for num in indices:
+            if target - num in indices:
+                if target - num == num and len(indices[num]) == 2:
+                    return indices[num]
+                if target - num != num:
+                    return [indices[num][0], indices[target - num][0]]
