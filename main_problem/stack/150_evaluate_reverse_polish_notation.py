@@ -16,9 +16,9 @@ class Solution:
                 return (abs(x) // abs(y)) * (x // abs(x)) * (y // abs(y))
         n = len(tokens)
         stack = []
-        operation = ['+', '-', '*', '/']
+        operations = ['+', '-', '*', '/']
         for i in range(n):
-            if tokens[i] in operation:
+            if tokens[i] in operations:
                 a = int(stack.pop())
                 b = int(stack.pop())
                 stack.append(op(b, a, tokens[i]))
