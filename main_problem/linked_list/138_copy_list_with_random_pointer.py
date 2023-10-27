@@ -11,26 +11,25 @@ class Node:
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
-            return head
-        visited = {None: None}
-        new_head = Node(head.val)
-        visited[head] = new_head
-
+            return None
+        result = Node(0)
+        node = result
+        mapping = {}
+        pre = head
         while head:
-            if head not in visited:
-                new_node = Node(head.val)
-                visited[head] = new_node
-            else:
-                new_node = visited[head]
-            if head.next and head.next not in visited:
-                new_node.next = Node(head.next.val)
-                visited[head.next] = new_node.next
-            else:
-                new_node.next = visited[head.next]
-            if head.random and head.random not in visited:
-                new_node.random = Node(head.random.val)
-                visited[head.random] = new_node.random
-            else:
-                new_node.random = visited[head.random]
+            node.val = head.val
+            node.next = None if head.next == None else Node(0)
+            mapping[head] = node
             head = head.next
-        return new_head
+            node = node.next
+        node = result
+        while pre:
+            print(pre.val)
+            node.random = mapping[pre.random] if pre.random else None
+            if pre.random:
+                print(pre.random.val)
+            pre = pre.next
+            if pre:
+                print(pre.val)
+            node = node.next
+        return result
