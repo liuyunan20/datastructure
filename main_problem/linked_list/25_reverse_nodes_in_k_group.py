@@ -6,23 +6,21 @@ class ListNode:
 
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
-        result = ListNode(0, head)
-        hook = result
+        i = 0
+        group = []
+        dummy = ListNode(0)
+        left = dummy
         while head:
-            reverse_nodes = []
-            cur_head = head
-            for i in range(k):
-                if not head:
-                    hook.next = cur_head
-                    return result.next
-                reverse_nodes.append(head)
-                head = head.next
-            head_k = reverse_nodes.pop()
-            cur = head_k
-            while reverse_nodes:
-                cur.next = reverse_nodes.pop()
-                cur = cur.next
-            hook.next = head_k
-            hook = cur
-            cur.next = None
-        return result.next
+            group.append(head)
+            head = head.next
+            i += 1
+            if i == k:
+                while group:
+                    left.next = group.pop()
+                    print(left.val)
+                    left = left.next
+                i = 0
+
+        left.next = group[0] if group else None
+
+        return dummy.next
