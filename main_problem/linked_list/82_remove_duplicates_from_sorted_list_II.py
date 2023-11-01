@@ -6,19 +6,18 @@ class ListNode:
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        pre = ListNode(-101, head)
-        dummy = pre
-        cur = head
-        cur_dup = False
-        while cur:
-            while cur.next and cur.next.val == cur.val:
-                cur_dup = True
-                cur.next = cur.next.next
-            if cur_dup:
-                pre.next = cur.next
-                cur = cur.next
-                cur_dup = False
+        result = ListNode(0)
+        result.next = head
+        pre = result
+        duplicate = False
+        while head:
+            while head.next and head.val == head.next.val:
+                head = head.next
+                duplicate = True
+            if duplicate:
+                pre.next = head.next if head.next else None
+                duplicate = False
             else:
-                cur = cur.next
                 pre = pre.next
-        return dummy.next
+            head = head.next
+        return result.next
