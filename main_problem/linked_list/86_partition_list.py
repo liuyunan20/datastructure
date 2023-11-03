@@ -7,24 +7,22 @@ class ListNode:
 
 class Solution:
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
-        find_big = False
-        pre = ListNode(0, head)
-        result = pre
+        if not head:
+            return None
+        left = []
+        right = []
         while head:
-            if find_big == False and head.val >= x:
-                find_big = True
-                hook_p = pre
-                hook_b = head
-                head = head.next
-                pre = pre.next
-            elif find_big == True and head.val < x:
-                current = head.next
-                pre.next = current
-                hook_p.next = head
-                head.next = hook_b
-                hook_p = head
-                head = current
+            if head.val < x:
+                left.append(head)
             else:
-                pre = pre.next
-                head = head.next
+                right.append(head)
+            head = head.next
+        result = ListNode(0)
+        cur = result
+        left.extend(right)
+        for node in left:
+            cur.next = node
+            cur = node
+        cur.next = None
+        return result.nextt
         return result.next
