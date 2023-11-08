@@ -10,25 +10,26 @@ class TreeNode:
 
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        queue = [[root]]
-        tree = [[root.val]]
-        while queue:
-            current = queue.pop()
-            next_level = []
-            next_level_val = []
-            for node in current:
+        nodes = [root]
+        while nodes:
+            l = len(nodes)
+            level = []
+            for _ in range(l):
+                node = nodes.pop(0)
                 if node:
-                    next_level.append(node.left)
-                    next_level.append(node.right)
-                    next_level_val.append(node.left.val) if node.left else next_level_val.append(None)
-                    next_level_val.append(node.right.val) if node.right else next_level_val.append(None)
-            if next_level:
-                tree.append(next_level_val)
-                queue.append(next_level)
-        print(tree)
-        for level in tree:
+                    level.append(node.val)
+                else:
+                    level.append(-101)
+                if node and node.left:
+                    nodes.append(node.left)
+                elif node and not node.left:
+                    nodes.append(None)
+                if node and node.right:
+                    nodes.append(node.right)
+                elif node and not node.right:
+                    nodes.append(None)
             i = 0
-            j = len(level) - 1
+            j = l - 1
             while i < j:
                 if level[i] != level[j]:
                     return False
