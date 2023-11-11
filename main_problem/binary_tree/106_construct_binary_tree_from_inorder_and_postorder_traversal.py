@@ -13,15 +13,13 @@ class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         if not postorder:
             return None
-        root_val = postorder[-1]
-        root = TreeNode(root_val)
-        idx = inorder.index(root_val)
-        left_in = inorder[:idx]
-        right_in = inorder[idx + 1:]
-        length_right = len(right_in)
-        length_left = len(left_in)
-        left_post = postorder[:length_left]
-        right_post = postorder[length_left:length_left + length_right]
-        root.left = self.buildTree(left_in, left_post)
-        root.right = self.buildTree(right_in, right_post)
+        val = postorder[-1]
+        root = TreeNode(val)
+        index = inorder.index(val)
+        left_inorder = inorder[:index]
+        right_inorder = inorder[index + 1:]
+        left_postorder = postorder[:index]
+        right_postorder = postorder[index: len(postorder) - 1]
+        root.left = self.buildTree(left_inorder, left_postorder)
+        root.right = self.buildTree(right_inorder, right_postorder)
         return root
