@@ -10,8 +10,5 @@ class Solution:
         if not root:
             return False
         if not root.left and not root.right:
-            if root.val == targetSum:
-                return True
-            return False
-        targetSum -= root.val
-        return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
+            return True if root.val == targetSum else False
+        return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
