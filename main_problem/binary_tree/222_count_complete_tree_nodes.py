@@ -7,6 +7,12 @@ class TreeNode:
 
 class Solution:
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-        return self.countNodes(root.left) + self.countNodes(root.right) + 1
+        def get_tree(node):
+            tree = []
+            if not node:
+                return tree
+            tree.append(node.val)
+            tree += get_tree(node.left)
+            tree += get_tree(node.right)
+            return tree
+        return len(get_tree(root))
