@@ -13,14 +13,14 @@ class Solution:
         if not root:
             return []
         nodes = [root]
-        right = []
+        result = []
         while nodes:
-            n = len(nodes)
-            for _ in range(n):
+            l = len(nodes)
+            result.append(nodes[-1].val)
+            for _ in range(l):
                 node = nodes.pop(0)
                 if node.left:
                     nodes.append(node.left)
                 if node.right:
                     nodes.append(node.right)
-            right.append(node.val)
-        return right
+        return result
