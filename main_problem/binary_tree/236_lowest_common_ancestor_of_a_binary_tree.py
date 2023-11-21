@@ -5,22 +5,17 @@ class TreeNode:
         self.right = None
 
 class Solution:
+    def __init__(self):
+        self.lowest = None
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        values = (p.val, q.val)
-        result = []
-
         def helper(node):
             if not node:
                 return False
-            if node.val in values:
-                mid = True
-            else:
-                mid = False
+            mid = True if node.val in [p.val, q.val] else False
             left = helper(node.left)
             right = helper(node.right)
             if (mid and left) or (mid and right) or (left and right):
-                result.append(node)
+                self.lowest = node
             return mid or left or right
-
         helper(root)
-        return result[0]
+        return self.lowest
