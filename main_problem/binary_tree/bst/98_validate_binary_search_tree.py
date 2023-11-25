@@ -7,20 +7,19 @@ class TreeNode:
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        stack = [root]
-        tree = []
-        while stack:
-            node = stack.pop()
-            if not node.left and not node.right:
-                if tree and tree[-1] >= node.val:
-                    return False
-                tree.append(node.val)
-            else:
-                if node.right:
-                    stack.append(node.right)
-                    node.right = None
-                stack.append(node)
-                if node.left:
-                    stack.append(node.left)
-                    node.left = None
+        def get_tree(node):
+            if not node:
+                return []
+            tree = []
+            if node.left:
+                tree += get_tree(node.left)
+            tree.append(node.val)
+            if node.right:
+                tree += get_tree(node.right)
+            return tree
+
+        bst = get_tree(root)
+        for i in range(len(bst) - 1):
+            if bst[i] >= bst[i + 1]:
+                return False
         return True
