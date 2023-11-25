@@ -29,25 +29,25 @@ class Solution:
         return counter
 
     def numIslands_DFS(self, grid: List[List[str]]) -> int:
+        def dsf(i, j, m, n):
+            val = grid[i][j]
+            if grid[i][j] != "1":
+                return 0
+            if grid[i][j] == "1":
+                island = [(i, j)]
+                while island:
+                    x, y = island.pop()
+                    for h, v in [(0, 0), (0, 1), (0, -1), (1, 0), (-1, 0)]:
+                        a = x + h
+                        b = y + v
+                        if 0 <= a < m and 0 <= b < n and grid[a][b] == "1":
+                            grid[a][b] = -1
+                            island.append((a, b))
+                return 1
         m = len(grid)
         n = len(grid[0])
-
-        def dfs(i, j):
-            if i < 0 or i >= m or j < 0 or j >= n:
-                return
-            if grid[i][j] == "0":
-                return
-            if grid[i][j] == "1":
-                grid[i][j] = "0"
-                dfs(i+1, j)
-                dfs(i-1, j)
-                dfs(i, j+1)
-                dfs(i, j-1)
-
-        counter = 0
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == "1":
-                    dfs(i, j)
-                    counter += 1
-        return counter
+        result = 0
+        for p in range(m):
+            for q in range(n):
+                result += dsf(p, q, m, n)
+        return result
