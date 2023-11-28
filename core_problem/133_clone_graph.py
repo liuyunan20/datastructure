@@ -7,25 +7,22 @@ class Node:
 """
 
 
+from typing import Optional
 class Solution:
-    def cloneGraph(self, node: 'Node') -> 'Node':
-        visited = set()
-        old_new = {}
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
-            return None
-
-        def dfs(n):
-            if n in visited:
-                return old_new[n]
-            visited.add(n)
-            new_node = Node()
-            old_new[n] = new_node
-            new_node.val = n.val
-            if n.neighbors:
-                new_node.neighbors = []
-                for nei in n.neighbors:
-                    new_nei = dfs(nei)
-                    new_node.neighbors.append(new_nei)
-            return new_node
-
-        return dfs(node)
+            return []
+        nodes = {}
+        visited = set()
+        queue = [node]
+        while queue:
+            node = queue.pop(0)
+            nodes[node.val] = Node(node.val)
+            for nei in node.neighbors:
+                if nei not in nodes:
+                    nodes[nei] = Node(nei)
+                if nei not in visited:
+                    nodes[node.val].neighbors.append(nodes[nei].val)
+                    queue.append(nei)
+            visited.add(node)
+        return nodes.values()
