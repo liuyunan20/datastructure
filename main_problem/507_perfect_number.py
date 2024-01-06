@@ -1,15 +1,13 @@
 class Solution:
     def checkPerfectNumber(self, num: int) -> bool:
-        divisors = []
+        if num == 1:
+            return False
+
         s = 1
-        l = num
         i = 2
         first = True
-        while i < l:
+        while i < int(num ** 0.5) + 1:
             if num / i == num // i:
-                s += i
-                if first:
-                    l = num // i + 1
-                    first = False
+                s += i + num // i
             i += 1
         return s == num
